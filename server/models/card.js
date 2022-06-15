@@ -14,7 +14,7 @@ const CardSchema = new Schema({
   ],
   boardId: Number,
   listId: Number,
-});
+}, { timestamps: true });
 
 const Card = mongoose.model('Card', CardSchema);
 
