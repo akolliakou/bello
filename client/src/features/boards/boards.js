@@ -19,6 +19,11 @@ export const createBoard = createAsyncThunk(
   }
 );
 
+export const fetchBoard = createAsyncThunk("boards/fetchBoard", async (id) => {
+  const data = await apiClient.getBoard(id);
+  return data;
+});
+
 const boardSlice = createSlice({
   name: "boards",
   initialState,
@@ -32,7 +37,19 @@ const boardSlice = createSlice({
       }, []);
     }),
       builder.addCase(createBoard.fulfilled, (state, action) => {
-        state.push(action.payload);
+       return state.push(action.payload);
+      });
+      builder.addCase(fetchBoard.fulfilled, (state, action) => {
+        const found = state.find(b => b._id === action.payload._id);
+        //eslint-disable-next-line
+        const { lists, ...boardWithout } = action.payload;
+        if (!found) {
+          return state.concat(boardWithout);
+        } else {
+          return state.map(b => {
+            return b._id === action.payload._id ? boardWithout : b;
+          });
+        }
       });
   },
 });

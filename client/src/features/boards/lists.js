@@ -1,22 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../lib/ApiClient";
+import { fetchBoard } from "./boards";
 
 const initialState = [];
 
-export const fetchBoard = createAsyncThunk("boards/fetchBoard", async () => {
-  const data = await apiClient.getBoard();
-  return data;
-});
-
-const boardSlice = createSlice({
-  name: 'board',
+const listSlice = createSlice({
+  name: "lists",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchBoard.fulfilled, (state, action) => {
-      return action.payload;
+      return action.payload.lists.map(list => {
+        const { cards, ...listWithout } = list;
+        return listWithout;
+      });      
     });
-  }
+  },
 });
 
-export default boardSlice.reducer;
+export default listSlice.reducer;
