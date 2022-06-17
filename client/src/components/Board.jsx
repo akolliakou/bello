@@ -31,11 +31,7 @@ const Board = () => {
      </div>
    </header>
    <main>
-     <div id="list-container" className="list-container">
-       <div id="existing-lists" className="existing-lists">
-         {/* Render Lists Here */}
-       </div>
-     </div>
+      <Lists />
    </main>
    </>
   )
