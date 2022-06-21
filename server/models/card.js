@@ -12,8 +12,8 @@ const CardSchema = new Schema({
       type: String
     }
   ],
-  boardId: Number,
-  listId: Number,
+  boardId: Schema.Types.ObjectId,
+  listId: Schema.Types.ObjectId,
 }, { timestamps: true });
 
 const Card = mongoose.model('Card', CardSchema);

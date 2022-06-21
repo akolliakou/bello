@@ -9,4 +9,6 @@ router.post("/boards", validateBoard, boardsController.createBoard);
 
 router.get(`/boards/:id`, boardsController.getBoard);
 
+router.post("/lists", boardsController.createList, boardsController.addListToBoard, boardsController.sendList)
+
 module.exports = router;

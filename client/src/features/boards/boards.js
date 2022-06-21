@@ -39,7 +39,8 @@ const boardSlice = createSlice({
       builder.addCase(createBoard.fulfilled, (state, action) => {
        return state.push(action.payload);
       });
-      builder.addCase(fetchBoard.fulfilled, (state, action) => {
+    builder.addCase(fetchBoard.fulfilled, (state, action) => {
+        console.log("Here", action.payload)
         const found = state.find(b => b._id === action.payload._id);
         //eslint-disable-next-line
         const { lists, ...boardWithout } = action.payload;

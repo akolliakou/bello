@@ -230,7 +230,7 @@ const SingleBoard = () => {
               </div>
             </div>
           </div>
-          <div id="new-list" className="new-list">
+          <div id="new-list" className="new-list selected">
             <span>Add a list...</span>
             <input type="text" placeholder="Add a list..." />
             <div>
