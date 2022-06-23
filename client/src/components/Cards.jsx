@@ -8,12 +8,12 @@ const Cards = ({ list }) => {
   const filteredCards = cards.filter(card => card.listId === list._id)
 
   return (
-      <div id="cards-container" data-id="list-1-cards">
-          {filteredCards.map(card => {
-            return <Card key={card._id} card={card} />
-          })}
-      </div>
-  )
+    <div id="cards-container" data-id="list-1-cards">
+        {filteredCards.map((card) => {
+          return <Card key={card._id} card={card} />;
+        })}
+    </div>
+  );
 }
 
 export default Cards;

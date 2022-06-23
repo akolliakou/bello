@@ -2,7 +2,7 @@ import React from "react";
 import { fetchBoard } from "../features/boards/boards";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom"
+import { useParams, useLocation } from "react-router-dom"
 import Lists from "./Lists"
 
 const Board = () => {
@@ -10,11 +10,28 @@ const Board = () => {
   const dispatch = useDispatch()
   const boards = useSelector((state) => state.boards);
 
+  const path = useLocation().pathname;
+
+  const isBoardsPath = path.includes('boards');
+  let boardId;
+  const cards = useSelector((state) => state.cards);
+
+  if (isBoardsPath) {
+    boardId = id;
+  } else {
+    const card = cards.find(c => c._id === id);
+    if (card) {
+      boardId = card.boardId
+    }
+  }
+
   useEffect(() => {
-    dispatch(fetchBoard(id));
-  }, [dispatch, id]);
+    if (boardId) {
+      dispatch(fetchBoard(boardId));
+    }   
+  }, [dispatch, boardId]);
  
-  const board = boards.find(b => b._id === id);
+  const board = boards.find(b => b._id === boardId);
 
   if (!board) {
     return null;
@@ -36,7 +53,7 @@ const Board = () => {
         </div>
       </header>
       <main>
-        <Lists />
+        <Lists boardId={boardId} />
       </main>
     </>
   );

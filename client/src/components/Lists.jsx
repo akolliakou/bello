@@ -4,10 +4,9 @@ import { useParams } from "react-router-dom";
 import List from "./List"
 import AddList from "./AddList";
 
-const Lists = () => {
-    const { id } = useParams()
+const Lists = ( {boardId }) => {
     const lists = useSelector((state) => state.lists);
-    const filteredLists = lists.filter(list => list.boardId === id);
+    const filteredLists = lists.filter(list => list.boardId === boardId);
 
     return (
       <div id="list-container" className="list-container">
