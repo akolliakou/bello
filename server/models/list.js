@@ -14,6 +14,10 @@ const ListSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: [true, "The boardId is required"],
     },
+    cards: {
+      type: Array,
+      default: [],
+    }
   },
   { timestamps: true }
 );

@@ -41,48 +41,13 @@ const getBoard = (req, res, next) => {
     then((board) => {
     res.json(board);
   })
-  .catch((err) =>
+  .catch((err) => {
+    console.log("Here");
     next(new HttpError("Board doesn't exist", 404))
+  }
   );
-}
-
-const createList = (req, res, next) => {
-  const boardId = req.body.boardId;
-  const title = req.body.list.title;
-
-  List.create({boardId, title})
-    .then(list => {
-      if (!list.title) {
-        return next(new HttpError("Unprocessable entity", 422));
-      } else {
-        req.list = list;
-        next();
-      }
-    })
-}
-
-const addListToBoard = (req, res, next) => {
-  const list = req.list;
-  Board.findByIdAndUpdate(req.body.boardId, { $addToSet: { lists: list._id } }).then(() => {
-    next();
-  })
-}
-
-const sendList = (req, res) => {
-  const list = req.list
-  res.json({
-    _id: req.list._id,
-    title: req.list.title,
-    boardId: req.list.boardId,
-    createdAt: req.list.createdAt,
-    updatedAt: req.list.updatedAt,
-    position: req.list.position,
-  });
 }
 
 exports.getBoards = getBoards;
 exports.createBoard = createBoard;
 exports.getBoard = getBoard;
-exports.createList = createList;
-exports.addListToBoard = addListToBoard;
-exports.sendList = sendList;
