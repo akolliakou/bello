@@ -22,4 +22,11 @@ router.put("/lists/:id", listsController.updateList)
 
 router.get("/cards/:id", cardsController.getCard)
 
+router.post(
+  "/cards",
+  cardsController.createCard,
+  cardsController.addCardToList,
+  cardsController.sendCard
+);
+
 module.exports = router;

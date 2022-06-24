@@ -194,7 +194,6 @@ const SingleBoard = () => {
                             done.
                           </p>
                         </div>
-                        <div className="card-icons"></div>
                       </div>
                     </div>
                     <div className="card-background">

@@ -5,9 +5,14 @@ import { fetchBoard } from "./boards";
 const initialState = [];
 
 export const fetchCard = createAsyncThunk("cards/fetchCard", async (id) => {
-  const data = await apiClient.getCard(id)
+  const data = await apiClient.getCard(id);
   return data;
-})
+});
+
+export const addCard = createAsyncThunk("cards/addCard", async (newCard) => {
+  const data = await apiClient.addCard(newCard);
+  return data;
+});
 
 const cardSlice = createSlice({
   name: "cards",
@@ -26,6 +31,9 @@ const cardSlice = createSlice({
         return card._id !== action.payload._id;
       });
       return filteredCards.concat(action.payload);
+    });
+    builder.addCase(addCard.fulfilled, (state, action) => {
+      return state.concat(action.payload);
     });
   }
 });

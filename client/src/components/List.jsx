@@ -1,12 +1,14 @@
 import React from "react";
 import Cards from "./Cards"
+import AddCard from "./AddCard";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateList } from "../features/boards/lists";
 
-const List = ({ list }) => {
+const List = ({ list, activeList, setActiveList }) => {
   const [title, setTitle] = useState(list.title);
   const dispatch = useDispatch();
+  const active = activeList === list._id ? "add-dropdown-active" : "";
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -21,7 +23,7 @@ const List = ({ list }) => {
   }
 
   return (
-    <div className="list-wrapper">
+    <div className={`list-wrapper ${active}`}>
       <div className="list-background">
         <div className="list">
           <a className="more-icon sm-icon" href=""></a>
@@ -35,15 +37,8 @@ const List = ({ list }) => {
               onBlur={handleUpdateTitle}
             />
           </div>
-          <div className="add-dropdown add-top">
-            <div className="card"></div>
-            <a className="button">Add</a>
-            <i className="x-icon icon"></i>
-            <div className="add-options">
-              <span>...</span>
-            </div>
-          </div>
           <Cards list={list} />
+          <AddCard setActiveList={setActiveList} listId={list._id}/>
         </div>
       </div>
     </div>

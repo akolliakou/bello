@@ -60,7 +60,15 @@ const apiClient = {
       const { data } = await axios.get(routes.SINGLE_CARD_URL + `${id}`)
       return data;
     } catch (e) {
-      logError(e)
+      logError(e);
+    }
+  },
+  addCard: async(newCard) => {
+    try {
+      const { data } = await axios.post(routes.CREATE_CARD_URL, newCard);
+      return data;
+    } catch (e) {
+      logError(e);
     }
   }
 };
